@@ -214,14 +214,6 @@ export function SideBar() {
 
     `;
     
-    const StyledHeroGroup = styled.div`
-        grid-column:2;
-        grid-row:1; 
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
-    `;
-    
     // this styles/positions body content of the sidebar - nav + heros
     const StyledSidebar = styled.div`
         padding-top:32vh;
