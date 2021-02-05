@@ -1,23 +1,47 @@
-import logo from './logo.svg';
-import './App.css';
+import styled from 'styled-components'
+import {createGlobalStyle} from 'styled-components'
+import * as nv from './components/Navigation'
+
+const GlobalStyles = createGlobalStyle`
+  body {
+    margin: 0;
+    font-family: 'Poppins', Arial;
+  }
+  .slide-content .scroller {
+    width: 1024px;
+  }
+  ::-webkit-scrollbar {
+      width: 0.8vw;
+  }
+  ::-webkit-scrollbar-thumb {
+      background: #0e5c4f;
+  }
+  ::-webkit-scrollbar-track {
+      background: #09293A;
+  }
+`;
+
+
+const AppHeader = styled.header`
+  background-color: #09293A;
+  min-height: 100vh;
+  font-size: calc(10px + 2vmin);
+  color: white;
+`;
+
+const AppStyle = styled.div`
+  text-align: center;
+`
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+    <GlobalStyles/>
+    <AppStyle>
+      <AppHeader>
+        <nv.SideBar/>
+      </AppHeader>
+    </AppStyle>
     </div>
   );
 }
