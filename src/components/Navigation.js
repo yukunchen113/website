@@ -70,7 +70,7 @@ export function Nav({showDescription, showDescriptionUnderneath, children}){
                     return (`
                         display:grid;
                         grid-template-columns:max(28vw,315px) auto;
-                        grid-row-gap:1em;
+                        grid-row-gap:23px;
                         text-align:right;
                     `);
                 } else {
@@ -123,7 +123,7 @@ export function Socials() {
     let soc = produce(socials, draft=>draft);
     soc = soc.map(social => 
         <React.Fragment key={social.id}>
-            <a href={social.link}><img src={social.icon} style={{paddingLeft:"10px", paddingRight:"10px"}} alt="socials"/>
+            <a href={social.link}><img src={social.icon} style={{paddingRight:"8px"}} alt="socials"/>
         </a></React.Fragment>);
     return (
         <SocialStyle>
@@ -184,7 +184,7 @@ export function Logo({children}) {
 }
 export function SideBar() { 
     // constants
-    const mobileWidth = 1090;
+    const mobileWidth = 1156;
     const mobileHeight = 700;
     let isMaxWidth = useMediaQuery({maxWidth: mobileWidth}) 
     let isMaxHeight = useMediaQuery({maxHeight: mobileHeight})
@@ -206,6 +206,8 @@ export function SideBar() {
                 return `
                     margin: 0;
                     padding: 0;
+                    grid-column:2;
+                    grid-row:1; 
                     `
             }
         }}
@@ -222,10 +224,11 @@ export function SideBar() {
     
     // this styles/positions body content of the sidebar - nav + heros
     const StyledSidebar = styled.div`
-        padding-top:35vh;
+        padding-top:32vh;
         display: grid;
         ${()=>!isMobile&&`
-            grid-template-columns:fit-content() auto;
+            grid-template-columns:fit-content auto;
+            grid-gap:4vw;
             justify-content:start;
             `}
     `;
@@ -248,34 +251,19 @@ export function SideBar() {
             <Nav showDescription={true} showDescriptionUnderneath={isMobile}>{item.content}</Nav>
         </React.Fragment>);
 
-    
-    // sidebar construction, perhaps there is a easier way in pure css
-    let sidebar = isMobile?(
-        <StyledSidebar>
-            <HeroDesign src={herodesigns.autoencoder} alt="neural-net-brain"/>
-            <div>
-                {nav}
-            </div>
-            <HeroDesign src={herodesigns.planet} style={{width:"275px", paddingTop:"73px", paddingLeft:"40px"}} alt="planet-orbit"/>
-        </StyledSidebar>
-        ):(
-        <StyledSidebar>
-            <div>
-                {nav}
-            </div>
-            <StyledHeroGroup>
-                <HeroDesign src={herodesigns.autoencoder} style={{paddingLeft:"200px"}} alt="neural-net-brain"/>
-                <HeroDesign src={herodesigns.planet} alt="planet-orbit"/>
-            </StyledHeroGroup>
-        </StyledSidebar>
-        )
-
-
     return (
         <div>
             <Logo>Yukun Chen</Logo>
             {isMobile && <TopNav/>}
-            {sidebar}
+            <StyledSidebar>
+            <HeroDesign src={herodesigns.autoencoder} style={{
+                paddingTop:isMobile?"0px":"20px", paddingLeft:isMobile?0:"220px"}} alt="neural-net-brain"/>
+            <div>
+                {nav}
+            </div>
+            <HeroDesign src={herodesigns.planet} style={{
+                width:isMobile?"275px":null, paddingTop:isMobile?"73px":"140px", paddingLeft:isMobile?"40px":"0px"}} alt="planet-orbit"/>
+            </StyledSidebar>
             <StyledSocial>
                 <Socials/>
             </StyledSocial>

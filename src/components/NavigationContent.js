@@ -22,14 +22,12 @@ const herodesigns = {
 };
 
 const socials = [
-    {
-        id:0,
-        icon:github, 
-        link:"https://github.com/yukunchen113"},
-    {
-        id:1,
+    {id:0,
         icon:linkedin, 
-        link:"https://www.linkedin.com/in/yukun-chen/"}
+        link:"https://www.linkedin.com/in/yukun-chen/"},
+    {id:1,
+        icon:github, 
+        link:"https://github.com/yukunchen113"}
 ];
 
 export {
