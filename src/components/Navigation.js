@@ -1,14 +1,15 @@
 import React, {useState} from "react";
 import styled from 'styled-components';
-import {navComponents, socials, herodesigns, selection_arrow} from './NavigationContent';
+import {navComponents, socials, selection_arrow} from './NavigationContent';
 import Burger from './Burger';
 import produce from 'immer';
 import { useMediaQuery } from 'react-responsive';
-
-export function NavLink({children, link}) {
+import { motion } from "framer-motion";
+import { AnimatedPlanetButton, AnimatedAutoencoderButton } from "./AnimatedSVGs";
+function NavLink({children, link}) {
     // show description accouns for whether the headers should be spread out to account for description or not
     // styles
-    const NavHeader = styled.a`
+    const NavHeader = styled(motion.a)`
         font-size: min(8.8vmin, 36px);
         font-weight: 500;
         cursor:pointer;
@@ -27,17 +28,20 @@ export function NavLink({children, link}) {
     //processing and return    
     let arrow_distance=0.25;//should be from 1 to 0.25, control this with animation somehow, sometime in future
     return (
-        <NavHeader href={link}>
+        <NavHeader whileHover={{fontSize:"38px"}} whileTap={{fontSize:"34.2px"}} href={link}>
             <NavArrow style={{paddingRight: `${arrow_distance}em`}} src={selection_arrow} alt="navigation-arrow" />
             {children}
         </NavHeader>
     );
 }
-export function Nav({showDescription, showDescriptionUnderneath, children}){
+function Nav({showDescription, showDescriptionUnderneath, children, motionDelay}){
     // this is a single nav link with description
     // no media information (abstracted)
     // if show description underneath, will be a certain percentage of height of page
-    //style
+    
+    //=============================//
+    // Style and Component Creation//
+    //=============================//
     
     // handles padding of each description item given underneath or not
     const NavDescriptionItem = styled.div`
@@ -100,38 +104,63 @@ export function Nav({showDescription, showDescriptionUnderneath, children}){
     let description = children.description;
     description = description.map((item,idx)=> 
         <React.Fragment key={idx+1}>{showDescription?<NavDescriptionItem>{item}</NavDescriptionItem>:null}</React.Fragment>);
+    
+    //========//
+    // Motion //
+    //========//
+    const parentMotionVariant = {
+        visible:{ 
+            opacity:1,
+            transition: {
+                when: "beforeChildren",
+                delay:motionDelay,
+                staggerChildren: 0.25,
+            } 
+        },
+        hidden:{ opacity:0 }
+    }
+    const childMotionVariant = {
+        hidden:{opacity:0, y:-10},
+        visible:{opacity: 1, y:0, transition:{ease:"easeOut"}}
+    }
+
     return (
-        <StyledNav>
-                <div>
+        <motion.div variants={parentMotionVariant}>
+            <StyledNav>
+                <motion.div variants={childMotionVariant}>
                     <React.Fragment key={0}> 
                         <NavLink link={children.link}>
                             {children.heading}
                         </NavLink>
                     </React.Fragment>
-                </div>
+                </motion.div>
                 <NavDescription>
-                    {description}
+                    {description.map((item,idx)=> 
+                        <motion.div variants={childMotionVariant} key={idx+1}>{item}</motion.div>)}
                 </NavDescription>
-        </StyledNav>
+            </StyledNav>
+        </motion.div>
     );
 }
 export function Socials() {
     // style
-    const SocialStyle = styled.div``;
+    const SocialStyle = styled.div`
+        display:flex;
+    `;
 
     // processing
     let soc = produce(socials, draft=>draft);
     soc = soc.map(social => 
-        <React.Fragment key={social.id}>
+        <motion.div key={social.id} whileHover={{scale:1.1}} whileTap={{scale:0.95}}>
             <a href={social.link}><img src={social.icon} style={{paddingRight:"8px"}} alt="socials"/>
-        </a></React.Fragment>);
+        </a></motion.div>);
     return (
         <SocialStyle>
             {soc}
         </SocialStyle>
     );
 }
-export function TopNav() {
+function TopNav() {
     // controls multiple Nav components under certain events eg. slide out on click
     const StyledTopNav = styled.nav`
         display: flex;
@@ -165,8 +194,8 @@ export function TopNav() {
         </div>
     );
 }
-export function Logo({children}) {
-    const StyledLogo = styled.a`
+function Logo({children}) {
+    const StyledLogo = styled(motion.a)`
         position: absolute;
         left: 1rem;
         top: 1rem;
@@ -176,12 +205,14 @@ export function Logo({children}) {
         color: #FFFFFF;
         text-decoration: none;
         `;
+    
     return (
         <StyledLogo href="#" id="logo">
             {children}
         </StyledLogo>
     );
 }
+
 export function SideBar() { 
     // constants
     const mobileWidth = 1156;
@@ -191,7 +222,7 @@ export function SideBar() {
     let isMobile = isMaxWidth || isMaxHeight
 
     // style
-    const HeroDesign = styled.img`
+    const HeroDesign = styled(motion.div)`
         ${()=>{
 
             if (isMobile) {
@@ -200,7 +231,6 @@ export function SideBar() {
                     margin-left: auto;
                     margin-right: auto;
                     width:200px;
-                    
                 `;
             } else {
                 return `
@@ -215,7 +245,7 @@ export function SideBar() {
     `;
     
     // this styles/positions body content of the sidebar - nav + heros
-    const StyledSidebar = styled.div`
+    const StyledSidebar = styled(motion.div)`
         padding-top:32vh;
         display: grid;
         ${()=>!isMobile&&`
@@ -226,40 +256,71 @@ export function SideBar() {
     `;
     
     // positioning and layout of social buttons
-    const StyledSocial = styled.div`
+    const StyledSocial = styled(motion.div)`
         position:${()=>isMobile?"static":"absolute"};
         bottom: ${()=>isMobile?"0":"1rem"}; /*large gap from bottom, mobile only */
         padding-bottom: ${()=>isMobile?"50vh":"0rem"}; /*large gap from bottom, mobile only */
         padding-top: ${()=>isMobile?"40vh":"1em"};
-        display: flex;
-        flex-direction: ${()=>isMobile?"column":"row"};
+        display: grid;
+        justify-items: ${()=>isMobile?"center":"start"};
         padding-left:1rem;
     `;
 
     // controls multiple Nav components under certain events eg. media->showDescriptionUnderneath=True
     let nav = produce(navComponents, draft=>draft);
-    nav = nav.map(item => 
-        <React.Fragment key={item.id}>
-            <Nav showDescription={true} showDescriptionUnderneath={isMobile}>{item.content}</Nav>
-        </React.Fragment>);
+
+    // controls motion of main components
+    //TODO this parent stagger isn't propogating to children, and a delay is currently manually being passed through
+    const parentMotionVariant = {
+        hidden: { opacity: 0 },
+        visible: {
+            opacity: 1,
+            transition: {
+                when: "beforeChildren",
+                staggerChildren: 0.3,
+            }
+        }
+    };
+    const logoMotionVariant = {
+        hidden:{ opacity:0},
+        visible:{opacity:1}
+    };
+    const bodyMotionVariant = {
+        hidden:{ opacity:0 },
+        visible:{ 
+            opacity:1,
+            transition: {
+                when: "beforeChildren",
+                staggerChildren: isMobile?0:1,
+            } 
+        }
+    };
+    const socialMotionVariant = {
+        hidden:{ opacity:0 },
+        visible:{ opacity:1 }
+    };
 
     return (
-        <div>
-            <Logo>Yukun Chen</Logo>
-            {isMobile && <TopNav/>}
-            <StyledSidebar>
-            <HeroDesign src={herodesigns.autoencoder} style={{
-                paddingTop:isMobile?"0px":"20px", paddingLeft:isMobile?0:"220px"}} alt="neural-net-brain"/>
-            <div>
-                {nav}
-            </div>
-            <HeroDesign src={herodesigns.planet} style={{
-                width:isMobile?"275px":null, paddingTop:isMobile?"73px":"140px", paddingLeft:isMobile?"40px":"0px"}} alt="planet-orbit"/>
+        <motion.div initial="hidden" animate="visible" variants={parentMotionVariant}>
+            <motion.div variants={logoMotionVariant}>
+                <Logo>Yukun Chen</Logo>
+                {isMobile && <TopNav/>}
+            </motion.div>
+            <StyledSidebar variants={bodyMotionVariant}>
+                <motion.div>
+                    {nav.map((item, idx) => <Nav motionDelay={idx*4*0.3} showDescription={true} showDescriptionUnderneath={isMobile}>{item.content}</Nav>)}
+                </motion.div>
+                <HeroDesign style={{paddingTop:isMobile?"0px":"20px", paddingLeft:isMobile?0:"220px", gridRow:isMobile?1:null}} alt="neural-net-brain">
+                    <AnimatedAutoencoderButton/>
+                </HeroDesign>                        
+                <HeroDesign style={{width:isMobile?"275px":null, paddingTop:isMobile?"73px":"140px", paddingLeft:isMobile?"40px":"0px"}} alt="planet-orbit">
+                    <AnimatedPlanetButton/>
+                </HeroDesign>
             </StyledSidebar>
-            <StyledSocial>
+            <StyledSocial variants={socialMotionVariant}>
                 <Socials/>
             </StyledSocial>
-        </div>
+        </motion.div>
     );
 }
 

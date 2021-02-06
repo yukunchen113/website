@@ -16,11 +16,6 @@ export const navComponents = [// first is the nav, rest is the description
 ];
 
 
-const herodesigns = {
-    autoencoder,
-    planet
-};
-
 const socials = [
     {id:0,
         icon:linkedin, 
@@ -31,7 +26,6 @@ const socials = [
 ];
 
 export {
-    herodesigns,
     socials,
     selection_arrow
 
