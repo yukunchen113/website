@@ -153,7 +153,7 @@ export function AnimatedPlanet(){
 
 export function AnimatedAutoencoderButton(){
     return (
-        <motion.div whileHover={{ scale: 1.1 }} whileTap={{scale: 0.95, borderRadius: "100%"}}>
+        <motion.div whileHover={{ scale: 1.1 }} whileTap={{scale: 0.95, borderRadius: "100%"}} style={{cursor:"pointer"}}>
             <AnimatedAutoencoder/>
         </motion.div>
     );
@@ -161,7 +161,7 @@ export function AnimatedAutoencoderButton(){
 
 export function AnimatedPlanetButton(){
     return (
-        <motion.div whileHover={{ scale: 1.1 }} whileTap={{scale: 0.95, borderRadius: "100%"}}>
+        <motion.div whileHover={{ scale: 1.1 }} whileTap={{scale: 0.95, borderRadius: "100%"}} style={{cursor:"pointer"}}>
             <AnimatedPlanet/>
         </motion.div>
     );
