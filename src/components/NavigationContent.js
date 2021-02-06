@@ -1,5 +1,3 @@
-import autoencoder from '../images/autoencoder.svg'
-import planet from '../images/planet.svg'
 import github from '../images/github.svg'
 import linkedin from '../images/linkedin.svg'
 import selection_arrow from "../images/selection_arrow.svg"
