@@ -301,19 +301,19 @@ export function SideBar() {
     };
 
     return (
-        <motion.div initial="hidden" animate="visible" variants={parentMotionVariant}>
+        <motion.div initial="hidden" animate="visible" style={{overflowX : 'hidden'}} variants={parentMotionVariant}>
             <motion.div variants={logoMotionVariant}>
                 <Logo>Yukun Chen</Logo>
                 {isMobile && <TopNav/>}
             </motion.div>
             <StyledSidebar variants={bodyMotionVariant}>
                 <motion.div>
-                    {nav.map((item, idx) => <Nav motionDelay={idx*4*0.3} showDescription={true} showDescriptionUnderneath={isMobile}>{item.content}</Nav>)}
+                    {nav.map((item, idx) => <Nav key={idx} motionDelay={idx*4*0.3} showDescription={true} showDescriptionUnderneath={isMobile}>{item.content}</Nav>)}
                 </motion.div>
                 <HeroDesign style={{paddingTop:isMobile?"0px":"20px", paddingLeft:isMobile?0:"220px", gridRow:isMobile?1:null}} alt="neural-net-brain">
                     <AnimatedAutoencoderButton/>
                 </HeroDesign>                        
-                <HeroDesign style={{width:isMobile?"275px":null, paddingTop:isMobile?"73px":"140px", paddingLeft:isMobile?"40px":"0px"}} alt="planet-orbit">
+                <HeroDesign style={{width:isMobile?"275px":null, paddingTop:isMobile?"73px":"140px"}} alt="planet-orbit">
                     <AnimatedPlanetButton/>
                 </HeroDesign>
             </StyledSidebar>

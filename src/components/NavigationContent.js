@@ -22,7 +22,6 @@ const socials = [
         icon:github, 
         link:"https://github.com/yukunchen113"}
 ];
-
 export {
     socials,
     selection_arrow
