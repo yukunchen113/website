@@ -4,14 +4,15 @@ This is the repo for my personal website made with react.
 I previously used Github Pages and Jekyll but wanted to make a better designed website.
 
 ## TODO:
-- improve resize (tablet mode)
+- additional resize (tablet mode)
     - allow elements to shrink in desktop mode and set to mobile when too small 
     - top menu burger nav instead of sidebar
     - posts take all screen instead of half
+    - keep whitespace
+    - keep in mind the wrapping of text
 
-- load in animation for landing page
-    - use framer motion
-    - sequential load in
+- improve animation for landing page
+    - load in when in viewport (mobile+tablet)    
 
 - load animation for posts (about me, projects, experience)
     - mobile version

@@ -91,7 +91,7 @@ export function AnimatedPlanet(){
             transition: {
                 type:"spring",
                 damping:10,
-                stiffness:300,
+                stiffness:100,
                 velocity:7,
 
                 when: "beforeChildren",

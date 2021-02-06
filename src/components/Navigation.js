@@ -11,6 +11,7 @@ function NavLink({children, link}) {
     // styles
     const NavHeader = styled(motion.a)`
         font-size: min(8.8vmin, 36px);
+        white-space: nowrap;
         font-weight: 500;
         cursor:pointer;
         color:#FFFFFF;
@@ -62,6 +63,7 @@ function Nav({showDescription, showDescriptionUnderneath, children, motionDelay}
     
     // handles padding between heading and description when not underneath
     const NavDescription = styled.div`
+        white-space: nowrap;
         padding:${()=>!showDescription || showDescriptionUnderneath?"0":"0.25em"};
         padding-left:${()=>!showDescription || showDescriptionUnderneath?"0":"0.5em"};
     `;
@@ -217,9 +219,9 @@ export function SideBar() {
     // constants
     const mobileWidth = 1156;
     const mobileHeight = 700;
-    let isMaxWidth = useMediaQuery({maxWidth: mobileWidth}) 
-    let isMaxHeight = useMediaQuery({maxHeight: mobileHeight})
-    let isMobile = isMaxWidth || isMaxHeight
+    let isMobileWidth = useMediaQuery({maxWidth: mobileWidth}) 
+    let isMobileHeight = useMediaQuery({maxHeight: mobileHeight})
+    let isMobile = isMobileWidth || isMobileHeight
 
     // style
     const HeroDesign = styled(motion.div)`
@@ -301,16 +303,17 @@ export function SideBar() {
     };
 
     return (
-        <motion.div initial="hidden" animate="visible" style={{overflowX : 'hidden'}} variants={parentMotionVariant}>
+        <motion.div initial="hidden" animate="visible" style={{overflowX : 'hidden', overflowY:isMobile?null:"hidden"}} variants={parentMotionVariant}>
             <motion.div variants={logoMotionVariant}>
                 <Logo>Yukun Chen</Logo>
                 {isMobile && <TopNav/>}
             </motion.div>
             <StyledSidebar variants={bodyMotionVariant}>
                 <motion.div>
-                    {nav.map((item, idx) => <Nav key={idx} motionDelay={idx*4*0.3} showDescription={true} showDescriptionUnderneath={isMobile}>{item.content}</Nav>)}
+                    {nav.map((item, idx) => <Nav key={idx} motionDelay={idx*4*0.3} showDescription={true} showDescriptionUnderneath={isMobile} >{item.content}</Nav>)}
                 </motion.div>
-                <HeroDesign style={{paddingTop:isMobile?"0px":"20px", paddingLeft:isMobile?0:"220px", gridRow:isMobile?1:null}} alt="neural-net-brain">
+                <HeroDesign style={{paddingTop:isMobile?"0px":"20px", 
+                        paddingLeft:isMobile?0:"220px", gridRow:isMobile?1:null}} alt="neural-net-brain">
                     <AnimatedAutoencoderButton/>
                 </HeroDesign>                        
                 <HeroDesign style={{width:isMobile?"275px":null, paddingTop:isMobile?"73px":"140px"}} alt="planet-orbit">
