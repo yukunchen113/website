@@ -6,7 +6,8 @@ import produce from 'immer';
 import { useMediaQuery } from 'react-responsive';
 import { motion } from "framer-motion";
 import { AnimatedPlanetButton, AnimatedAutoencoderButton } from "./AnimatedSVGs";
-function NavLink({children, link}) {
+
+function NavLink({children, pageval, page, setPage}) {
     // show description accouns for whether the headers should be spread out to account for description or not
     // styles
     const NavHeader = styled(motion.a)`
@@ -16,26 +17,49 @@ function NavLink({children, link}) {
         cursor:pointer;
         color:#FFFFFF;
         text-decoration:none;
+        user-select: none;
+        white-space: nowrap;
         &:hover{
             color:rgb(203, 161, 255);
         }
     `;
 
-    const NavArrow = styled.img`
+    const NavArrow = styled(motion.img)`
         height:0.7em;
-        padding-right: 0.25em;
+        padding-right:0.25em;
     `;
 
     //processing and return    
-    let arrow_distance=0.25;//should be from 1 to 0.25, control this with animation somehow, sometime in future
+    let isopen = (page===false||pageval==page)
+
+    // move arrow on page change...
+    
+    let arrowVariants = {
+        open:{
+            x:"0",
+            transition: {
+                ease:"easeIn"
+            }
+        },
+        closed:{
+            x:"-1em",
+            transition: {
+                duration: 0.3,
+                ease:"easeIn"
+            }
+        }
+
+    };
+
+    //keep prev state value for animations
     return (
-        <NavHeader whileHover={{fontSize:"38px"}} whileTap={{fontSize:"34.2px"}} href={link}>
-            <NavArrow style={{paddingRight: `${arrow_distance}em`}} src={selection_arrow} alt="navigation-arrow" />
+        <NavHeader whileHover={{fontSize:"37px"}} whileTap={{fontSize:"35px"}} onClick={() => {setPage(pageval)}}>
+            <NavArrow animate={()=>isopen?"open":"closed"} variants={arrowVariants} src={selection_arrow} alt="navigation-arrow" />
             {children}
         </NavHeader>
     );
 }
-function Nav({showDescription, showDescriptionUnderneath, children, motionDelay}){
+function Nav({showDescription, showDescriptionUnderneath, children, motionDelay, page, setPage}){
     // this is a single nav link with description
     // no media information (abstracted)
     // if show description underneath, will be a certain percentage of height of page
@@ -64,6 +88,7 @@ function Nav({showDescription, showDescriptionUnderneath, children, motionDelay}
     // handles padding between heading and description when not underneath
     const NavDescription = styled.div`
         white-space: nowrap;
+        user-select: none;
         padding:${()=>!showDescription || showDescriptionUnderneath?"0":"0.25em"};
         padding-left:${()=>!showDescription || showDescriptionUnderneath?"0":"0.5em"};
     `;
@@ -131,7 +156,7 @@ function Nav({showDescription, showDescriptionUnderneath, children, motionDelay}
             <StyledNav>
                 <motion.div variants={childMotionVariant}>
                     <React.Fragment key={0}> 
-                        <NavLink link={children.link}>
+                        <NavLink pageval={children.page} page={page} setPage={setPage}>
                             {children.heading}
                         </NavLink>
                     </React.Fragment>
@@ -215,9 +240,9 @@ function Logo({children}) {
     );
 }
 
-export function SideBar() { 
+export function SideBar({page, setPage}) { 
     // constants
-    const mobileWidth = 1156;
+    const mobileWidth = 756;
     const mobileHeight = 700;
     let isMobileWidth = useMediaQuery({maxWidth: mobileWidth}) 
     let isMobileHeight = useMediaQuery({maxHeight: mobileHeight})
@@ -303,14 +328,14 @@ export function SideBar() {
     };
 
     return (
-        <motion.div initial="hidden" animate="visible" style={{overflowX : 'hidden', overflowY:isMobile?null:"hidden"}} variants={parentMotionVariant}>
+        <motion.div initial={!page&&"hidden"} animate="visible" style={{overflowX : 'hidden', overflowY:isMobile?null:"hidden"}} variants={parentMotionVariant}>
             <motion.div variants={logoMotionVariant}>
                 <Logo>Yukun Chen</Logo>
                 {isMobile && <TopNav/>}
             </motion.div>
             <StyledSidebar variants={bodyMotionVariant}>
                 <motion.div>
-                    {nav.map((item, idx) => <Nav key={idx} motionDelay={idx*4*0.3} showDescription={true} showDescriptionUnderneath={isMobile} >{item.content}</Nav>)}
+                    {nav.map((item, idx) => <Nav page={page} setPage={setPage}  key={idx} motionDelay={idx*4*0.3} showDescription={true} showDescriptionUnderneath={isMobile} >{item.content}</Nav>)}
                 </motion.div>
                 <HeroDesign style={{paddingTop:isMobile?"0px":"20px", 
                         paddingLeft:isMobile?0:"220px", gridRow:isMobile?1:null}} alt="neural-net-brain">

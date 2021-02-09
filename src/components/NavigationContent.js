@@ -8,9 +8,9 @@ const BoldedNavComponents = styled.div`
 `;
 
 export const navComponents = [// first is the nav, rest is the description
-    {id:0,content:{heading:"About Me", link:"#", description:["efficient.", "analytical.", <BoldedNavComponents>collaboration.</BoldedNavComponents>]}},
-    {id:1,content:{heading:"Projects", link:"#", description:[<BoldedNavComponents>representation learning</BoldedNavComponents>, "knowledge graph", "website"]}},
-    {id:2,content:{heading:"Experience", link:"#", description:[<BoldedNavComponents>machine learning</BoldedNavComponents>, <BoldedNavComponents style={{color:"#CBA1FF"}}>software for space</BoldedNavComponents>]}},
+    {id:0,content:{heading:"About Me", page:"about-me", description:["efficient.", "analytical.", <BoldedNavComponents>collaboration.</BoldedNavComponents>]}},
+    {id:1,content:{heading:"Projects", page:"projects", description:[<BoldedNavComponents>representation learning</BoldedNavComponents>, "knowledge graph", "website"]}},
+    {id:2,content:{heading:"Experience", page:"experience", description:[<BoldedNavComponents>machine learning</BoldedNavComponents>, <BoldedNavComponents style={{color:"#CBA1FF"}}>software for space</BoldedNavComponents>]}},
 ];
 
 

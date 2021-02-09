@@ -3,6 +3,9 @@ This is the repo for my personal website made with react.
 
 I previously used Github Pages and Jekyll but wanted to make a better designed website.
 
+## Bugs:
+- can't click brain on desktop after clicking planet
+
 ## TODO:
 - additional resize (tablet mode)
     - allow elements to shrink in desktop mode and set to mobile when too small 
@@ -12,7 +15,7 @@ I previously used Github Pages and Jekyll but wanted to make a better designed w
     - keep in mind the wrapping of text
 
 - improve animation for landing page
-    - load in when in viewport (mobile+tablet)    
+    - animate only when in when in viewport (mobile+tablet)
 
 - load animation for posts (about me, projects, experience)
     - mobile version

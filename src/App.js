@@ -1,6 +1,8 @@
 import styled from 'styled-components'
 import {createGlobalStyle} from 'styled-components'
 import * as nv from './components/Navigation'
+import React, {useState} from "react";
+import {motion} from 'framer-motion';
 
 const GlobalStyles = createGlobalStyle`
   body {
@@ -34,15 +36,16 @@ const AppStyle = styled.div`
 `
 
 function App() {
+  const [page, setPage] = useState(false);
   return (
-    <div>
+    <motion.div>
     <GlobalStyles/>
     <AppStyle>
       <AppHeader>
-        <nv.SideBar/>
+        <nv.SideBar page={page} setPage={setPage}/>
       </AppHeader>
     </AppStyle>
-    </div>
+    </motion.div>
   );
 }
 
