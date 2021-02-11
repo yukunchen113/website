@@ -1,52 +1,84 @@
-import styled from 'styled-components'
-import {createGlobalStyle} from 'styled-components'
-import * as nv from './components/Navigation'
-import React, {useState} from "react";
-import {motion} from 'framer-motion';
+import React, {useState} from 'react';
+import {motion} from "framer-motion";
+import styled from "styled-components";
+import {PageBackground} from "./components/Page"
+import Navigation from "./components/Navigation/Navigation";
+import Socials from "./components/Socials";
+import Logo from "./components/Logo";
+import {GetWindowWidth, screenMaxSizes} from "./components/Constants";
+import {AnimatedNeuralNetButton} from "./HeroDesigns/NeuralNet"
+import {AnimatedPlanetButton} from "./HeroDesigns/Planet"
 
-const GlobalStyles = createGlobalStyle`
-  body {
-    margin: 0;
-    font-family: 'Poppins', Arial;
-  }
-  .slide-content .scroller {
-    width: 1024px;
-  }
-  ::-webkit-scrollbar {
-      width: 0.8vw;
-  }
-  ::-webkit-scrollbar-thumb {
-      background: #0e5c4f;
-  }
-  ::-webkit-scrollbar-track {
-      background: #09293A;
-  }
+const StyledAppLayout = styled.div`
+    display:flex;
+    height:${props=>(props.isMobile?"100%":"100vh")};
+    flex-direction:column;
+    justify-content:space-between;
+    align-items:${props=>(props.isMobile?"stretch":"flex-start")};
+`;
+
+const StyledMainContent = styled.div`
+    display: grid;
+    ${props=>!props.isMobile&&`
+        grid-template-columns:fit-content auto;
+        grid-gap:4vw;
+        justify-content:start;
+        `}
 `;
 
 
-const AppHeader = styled.header`
-  background-color: #09293A;
-  min-height: 100vh;
-  font-size: calc(10px + 2vmin);
-  color: white;
+const HeroDesign = styled(motion.div)`
+    ${props=>{
+        if (props.isMobile) {
+            return `
+                display: grid;
+                margin-left: auto;
+                margin-right: auto;
+                width:200px;
+                user-select:none;
+            `;
+        } else {
+            return `
+                margin: 0;
+                padding: 0;
+                grid-column:2;
+                grid-row:1; 
+                `
+        }
+    }}
 `;
 
-const AppStyle = styled.div`
-  text-align: center;
-`
+export default function App() {
+    const [curPage, openPage] = useState("home");
+    const isMobile = GetWindowWidth()<=screenMaxSizes.phone;
+    const isTablet = GetWindowWidth()<=screenMaxSizes.tablet;
+    
+    return (
+        // Top level animates in the app
+        <motion.div style={{overflowX : 'hidden', overflowY:isMobile?null:"hidden"}} initial="hidden" animate="visible">
+            {/* Pages */}
+            <PageBackground curPage={curPage}>
+                <div style={{marginTop:"4rem"}}>
+                    Put page routing here {curPage}
+                </div>
+            </PageBackground>
 
-function App() {
-  const [page, setPage] = useState(false);
-  return (
-    <motion.div>
-    <GlobalStyles/>
-    <AppStyle>
-      <AppHeader>
-        <nv.SideBar page={page} setPage={setPage}/>
-      </AppHeader>
-    </AppStyle>
-    </motion.div>
-  );
-}
-
-export default App;
+            {/* Controllers: controls the pages */}
+            <StyledAppLayout isMobile={isMobile}>
+                <div style={{paddingLeft:"0.5em"}}>
+                    <Logo openPage={openPage}>Yukun Chen</Logo>
+                </div>
+                <StyledMainContent isMobile={isMobile}>
+                    <Navigation curPage={curPage} openPage={openPage}/>
+                    <HeroDesign isMobile={isMobile} initial="hidden" animate={((!isTablet||isMobile)&&curPage==="home")?"visible":"hidden"} style={{height:isMobile?"65vh":"20px", alignItems:isMobile?"end":null, paddingLeft:isMobile?0:"220px", gridRow:isMobile?1:null}} alt="neural-net-brain">
+                        <AnimatedNeuralNetButton/>
+                    </HeroDesign>
+                    <HeroDesign isMobile={isMobile} initial="hidden" animate={((!isTablet||isMobile)&&curPage==="home")?"visible":"hidden"} style={{width:isMobile?"275px":null, paddingTop:isMobile?"73px":"140px"}} alt="planet-orbit">
+                        <AnimatedPlanetButton/>
+                    </HeroDesign>
+                </StyledMainContent>
+                <Socials/>
+            </StyledAppLayout>
+        </motion.div>
+    );
+};
