@@ -42,6 +42,10 @@ let StyledNav = styled.div`
 const StyledDescription = styled(motion.div)`
     white-space: nowrap;
     user-select: none;
+    opacity: ${props=>props.isHome?1:0};
+    transition-delay: ${props=>props.isHome?0.5:0}s;
+    transition-duration: ${props=>props.isHome?0.5:0}s;
+    transition-timing-function: ease;
     padding:${props=>!props.showDescription || props.showDescriptionUnderneath?"0":"0.25em"};
     padding-left:${props=>!props.showDescription || props.showDescriptionUnderneath?"0":"0.5em"};
 `;
@@ -73,8 +77,13 @@ const navVariants = {
     }
 };
 
-const navItemVariant = {
-    hidden:{opacity:0, y:-10, transition:{ease:"easeOut"}},
+const navHeaderVariants = {
+    hidden:{opacity: 1, y:-10, transition:{ease:"easeOut"}},
+    visible:{opacity: 1, y:0, transition:{ease:"easeOut"}}
+};
+
+const navDescriptionVariant = {
+    hidden:{opacity:1, y:-10, transition:{ease:"easeOut"}},
     visible:{opacity: 1, y:0, transition:{ease:"easeOut"}}
 };
 
@@ -85,13 +94,13 @@ export function NavItem({header, description=[], showDescription=true, isAnimate
     return (
         <motion.div variants={navVariants}>
             <StyledNav showDescription={showDescription} showDescriptionUnderneath={isMobile}>
-                <motion.div variants={navItemVariant}>
+                <motion.div variants={navHeaderVariants}>
                     <ArrowPushedNavHeader header={header} isAnimate={isAnimate&&!isMobile} curPage={curPage} openPage={openPage}/>
                 </motion.div>
                 {/* StyledDescription will format the description at the header-description level of abstraction */}
-                <StyledDescription showDescription={showDescription} showDescriptionUnderneath={isMobile}>
+                <StyledDescription showDescription={showDescription} showDescriptionUnderneath={isMobile} isHome={curPage==="home"}>
                     {description.map((item,idx)=> 
-                        <motion.div variants={navItemVariant} key={idx}>
+                        <motion.div variants={navDescriptionVariant} key={idx}>
                             {showDescription?<StyledDescriptionItem showDescription={showDescription} showDescriptionUnderneath={isMobile}>{item}</StyledDescriptionItem>:null}
                         </motion.div>)}
                 </StyledDescription>

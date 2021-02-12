@@ -4,7 +4,7 @@ export const Bold = styled.div`
     font-weight: 500;
 `;
 
-export const sideBarWidth = "max(28vw,315px)";
+export const sideBarWidth = "max(23vw,315px)";
 
 export const screenMaxSizes = {
     phone: 740,

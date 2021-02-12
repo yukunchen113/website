@@ -1,27 +1,39 @@
 import React from "react";
 import { motion } from "framer-motion";
 const rootVariants = {
-    hidden: { opacity: 0, transition:{duration:0} },
+    hidden: { 
+        opacity: 1,
+        transition: {
+            when: "afterChildren",
+            staggerChildren: 0.1,
+        } 
+    },
     visible: {
         opacity: 1,
         transition: {
+            delay:0,
             when: "beforeChildren",
-            delayChildren: 0.3,
-            staggerChildren: 0.2,
+            staggerChildren: 0.1,
         }
     }
 };
 const layerVariants = {
-    hidden:{ opacity:0 },
+    hidden:{ 
+        opacity:1, 
+        transition: {
+            when: "afterChildren",
+            staggerChildren: 0.1,
+        },
+    },
     visible:{ opacity:1, 
         transition: {
-            delayChildren: 0.2,
+            ease: "easeOut",
             staggerChildren: 0.1,
         },
     }
 };
 const nodeVariants = {
-    hidden:{ y:5, scale:0 },
+    hidden:{ y:5, scale:0.3 },
     visible:{ y:0, scale:1 }
 };
 export function AnimatedNeuralNet(){
@@ -83,7 +95,7 @@ export function AnimatedNeuralNet(){
 
 export function AnimatedNeuralNetButton(){
     return (
-        <motion.div whileHover={{ scale: 1.1 }} whileTap={{scale: 0.95, borderRadius: "100%"}} style={{cursor:"pointer"}}>
+        <motion.div initial="hidden" animate="visible" whileHover={{scale:1.1}} whileTap={["hidden", "visible"]} style={{cursor:"pointer"}}>
             <AnimatedNeuralNet/>
         </motion.div>
     );

@@ -1,16 +1,11 @@
 import React from "react";
 import { motion } from "framer-motion";
 const rootVariants = {
-    hidden: { opacity: 0, scale:0, transition:{duration:0}},
+    hidden: { opacity: 0, scale:0},
     visible: {
         opacity: 1,
         scale:1,
         transition: {
-            delay:0.5,
-            type:"spring",
-            damping:50,
-            stiffness:400,
-
             when: "beforeChildren",
             staggerChildren: 0.1,
         }
@@ -20,7 +15,6 @@ const objectVariants = {
     hidden:{ opacity:0 },
     visible:{ opacity:1, 
         transition: {
-            delayChildren: 0.2,
             staggerChildren: 0.1,
         },
     }
@@ -71,7 +65,7 @@ export function AnimatedPlanet(){
 
 export function AnimatedPlanetButton(){
     return (
-        <motion.div whileHover={{ scale: 1.1 }} whileTap={{scale: 0.95, borderRadius: "100%"}} style={{cursor:"pointer"}}>
+        <motion.div initial="hidden" animate="visible" whileHover={{scale:1.1}} whileTap={["hidden", "visible"]} style={{cursor:"pointer"}}>
             <AnimatedPlanet/>
         </motion.div>
     );
