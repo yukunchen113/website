@@ -2,12 +2,13 @@ import React from 'react';
 import {motion} from "framer-motion";
 import styled from "styled-components";
 import selection_arrow from "../../images/selection_arrow.svg";
+import {sideBarWidth} from "../Constants";
 
 const StyledArrowPushed = styled(motion.a)`
     display: flex;
     flex-direction: row;
     justify-content:${props=>(props.isAnimate?(props.isCurPage?"flex-end":"flex-start"):"space-evenly")};
-    padding-left:${props=>(props.isAnimate?"6.5vw":0)};
+    padding-left:${props=>(props.isAnimate?`calc((${sideBarWidth} - 6.5em) / 2)`:0)};
     align-items: center;
     margin-left:${props=>(props.isAnimate?"0.4em":0)};
     font-size: min(8.8vw, 36px);
@@ -51,7 +52,7 @@ const arrowVariants = {
 
 export function ArrowPushedNavHeader({header, isAnimate, curPage, openPage}){
     return(
-        <StyledArrowPushed isAnimate={isAnimate} isCurPage={curPage===header||curPage==="home"}>
+        <StyledArrowPushed isAnimate={isAnimate} isCurPage={curPage===header||curPage==="home"} >
             {/* we need this StyledSelectedItem below for layout */}
             <StyledSelectedItem layout={isAnimate} onClick={()=>openPage(header)} animate={curPage===header||curPage==="home"?"open":"closed"}>
                 <StyledArrow animate={isAnimate?null:"open"} variants={arrowVariants} src={selection_arrow} alt="navigation-arrow" />

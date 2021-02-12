@@ -9,27 +9,28 @@ const navItemVariant = {
     hidden: { opacity: 0, y: -20 },
 };
 
+const navVariant = {
+    hidden: showDescription=>({ 
+        transition:{ 
+            staggerChildren:showDescription?0.4:0.2, 
+            when:"afterChildren",
+            ease:"easeOut"
+        }
+    }),
+    visible: showDescription=>({ 
+        transition:{ 
+            staggerChildren:showDescription?0.4:0.2, 
+            when:"beforeChildren",
+            ease:"easeOut"
+        } 
+    }),
+};
 export function NavMenu({...props}) {
     // Nav controls page routing/switching
-    const navVariant = {
-        hidden: { 
-            transition:{ 
-                staggerChildren:props.showDescription?0.4:0.2, 
-                when:"afterChildren",
-                ease:"easeOut"
-            }
-        },
-        visible: { 
-            transition:{ 
-                staggerChildren:props.showDescription?0.4:0.2, 
-                when:"beforeChildren",
-                ease:"easeOut"
-            } 
-        },
-    };
+
     
     return (
-        <motion.div initial="hidden" variants={navVariant}>
+        <motion.div initial="hidden" custom={props.showDescription} variants={navVariant}>
             {/* list elements will shift position on page switch */}
             <motion.div variants={navItemVariant}>
                 <NavItem header="About Me" description={[

@@ -28,10 +28,12 @@ const StyledMainContent = styled.div`
 
 
 const HeroDesign = styled(motion.div)`
+    opacity:${props=>(props.isMobile||!props.isTablet)?1:0};
     ${props=>{
         if (props.isMobile) {
             return `
                 display: grid;
+                align-items:center;
                 margin-left: auto;
                 margin-right: auto;
                 width:200px;
@@ -41,8 +43,9 @@ const HeroDesign = styled(motion.div)`
             return `
                 margin: 0;
                 padding: 0;
+                width:100%;
+                grid-row:1;
                 grid-column:2;
-                grid-row:1; 
                 `
         }
     }}
@@ -70,10 +73,10 @@ export default function App() {
                 </div>
                 <StyledMainContent isMobile={isMobile}>
                     <Navigation curPage={curPage} openPage={openPage}/>
-                    <HeroDesign isMobile={isMobile} initial="hidden" animate={((!isTablet||isMobile)&&curPage==="home")?"visible":"hidden"} style={{height:isMobile?"65vh":"20px", alignItems:isMobile?"end":null, paddingLeft:isMobile?0:"220px", gridRow:isMobile?1:null}} alt="neural-net-brain">
+                    <HeroDesign isMobile={isMobile} isTablet={isTablet} style={{height:isMobile?"65vh":"20px", alignItems:isMobile?"end":null, paddingLeft:isMobile?0:"220px", gridRow:isMobile?1:null}} alt="neural-net-brain">
                         <AnimatedNeuralNetButton/>
                     </HeroDesign>
-                    <HeroDesign isMobile={isMobile} initial="hidden" animate={((!isTablet||isMobile)&&curPage==="home")?"visible":"hidden"} style={{width:isMobile?"275px":null, paddingTop:isMobile?"73px":"140px"}} alt="planet-orbit">
+                    <HeroDesign isMobile={isMobile} isTablet={isTablet} style={{width:isMobile?"275px":null, paddingTop:isMobile?"73px":"0px", display:"grid", alignItems:"end"}} alt="planet-orbit">
                         <AnimatedPlanetButton/>
                     </HeroDesign>
                 </StyledMainContent>
