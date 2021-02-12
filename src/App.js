@@ -1,13 +1,13 @@
 import React, {useState} from 'react';
 import {motion} from "framer-motion";
 import styled from "styled-components";
-import {PageBackground} from "./components/Page"
+import {PageBackground, PageLoader} from "./components/Page"
 import Navigation from "./components/Navigation/Navigation";
 import Socials from "./components/Socials";
 import Logo from "./components/Logo";
 import {GetWindowWidth, screenMaxSizes} from "./components/Constants";
-import {AnimatedNeuralNetButton} from "./HeroDesigns/NeuralNet"
-import {AnimatedPlanetButton} from "./HeroDesigns/Planet"
+import {AnimatedNeuralNetButton} from "./components/HeroDesign/NeuralNet"
+import {AnimatedPlanetButton} from "./components/HeroDesign/Planet"
 
 const StyledAppLayout = styled.div`
     display:flex;
@@ -62,7 +62,7 @@ export default function App() {
             {/* Pages */}
             <PageBackground curPage={curPage}>
                 <div style={{marginTop:"4rem"}}>
-                    Put page routing here {curPage}
+                    <PageLoader/>
                 </div>
             </PageBackground>
 

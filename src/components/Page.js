@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import styled from "styled-components";
 import {motion} from "framer-motion"
 import {sideBarWidth, GetWindowWidth,screenMaxSizes} from "./Constants"
@@ -10,7 +10,6 @@ const StyledPage = styled(motion.div)`
     position:fixed;
     z-index:0;
 `;
-
 const StyledPageBackground = styled.div`
     background: #121212;
     height: 100vh;
@@ -18,7 +17,6 @@ const StyledPageBackground = styled.div`
     padding: 2rem;
     z-index:1;
 `;
-
 const pageVariants = {
     // code modified from https://codesandbox.io/s/framer-motion-side-menu-mx2rw?fontsize=14&module=/src/Example.tsx&file=/src/Example.tsx:648-789
     open:{
@@ -41,12 +39,10 @@ const pageVariants = {
           }
     },
 };
-
 const textVariants = {
     open:{opacity:1,translation:{duration:0.1}},
     closed:{opacity:0,translation:{duration:0.1}},
 };
-
 export function PageBackground({curPage, children}) {
     const mediaWidth = GetWindowWidth();
     const isFullPageSize = mediaWidth<=screenMaxSizes.tablet;
@@ -60,4 +56,22 @@ export function PageBackground({curPage, children}) {
         </StyledPage>
     );
     
-}
+};
+
+
+const Blog = require("../pages/test.md");
+
+export function PageLoader({pagePath}) {
+    const [post,setPost] = useState("");
+    useEffect(() =>{
+        fetch(Blog)
+            .then(res=>res.text)
+            .then(response=>setPost(response))
+            .then(err => setPost(err));
+    },[]);
+    return (
+        <div>
+            {post}
+        </div>
+    );
+};
