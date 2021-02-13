@@ -2,19 +2,23 @@ import React from 'react';
 import {motion} from "framer-motion";
 import styled from "styled-components";
 import selection_arrow from "../../images/selection_arrow.svg";
-import {sideBarWidth} from "../Constants";
+import {rootPage, standardColumnSpace} from "../Constants";
 
 const StyledArrowPushed = styled(motion.a)`
     display: flex;
     flex-direction: row;
-    justify-content:${props=>(props.isAnimate?(props.isCurPage?"flex-end":"flex-start"):"space-evenly")};
-    padding-left:${props=>(props.isAnimate?`calc((${sideBarWidth} - 6.5em) / 2)`:0)};
+    justify-content:${props=>(props.isAnimate?(props.isCurPage||props.isHome?"flex-end":"flex-start"):"space-evenly")};
+    padding-left:${props=>(props.isAnimate?standardColumnSpace:0)};
     align-items: center;
     margin-left:${props=>(props.isAnimate?"0.4em":0)};
     font-size: min(8.8vw, 36px);
     white-space: nowrap;
     font-weight: 500;
     color:#FFFFFF;
+    opacity:${props=>(props.isHome||props.isCurPage)?1:0.5};    
+    &:hover{
+        opacity:1;
+    }
     text-decoration:none;
     user-select: none;
     white-space: nowrap;
@@ -23,10 +27,9 @@ const StyledArrowPushed = styled(motion.a)`
 const StyledSelectedItem = styled(motion.div)`
     cursor:pointer;
     &:hover{
-        color:rgb(203, 161, 255);
+        color:${props=>props.isHome||!props.isCurPage?`rgb(203, 161, 255)`:null};
     }
 `;
-
 
 const StyledArrow = styled(motion.img)`
     height:0.7em;
@@ -51,10 +54,11 @@ const arrowVariants = {
 
 
 export function ArrowPushedNavHeader({header, isAnimate, curPage, openPage}){
+    const pageLink = "/"+header.replace(/\s+/g, "-").toLowerCase();
     return(
-        <StyledArrowPushed isAnimate={isAnimate} isCurPage={curPage===header||curPage==="home"} >
+        <StyledArrowPushed isAnimate={isAnimate} isCurPage={curPage===pageLink} isHome={curPage===rootPage}>
             {/* we need this StyledSelectedItem below for layout */}
-            <StyledSelectedItem layout={isAnimate} onClick={()=>openPage(header)} animate={curPage===header||curPage==="home"?"open":"closed"}>
+            <StyledSelectedItem isCurPage={curPage===pageLink} isHome={curPage===rootPage} layout={isAnimate} onClick={()=>openPage(pageLink)} animate={curPage===pageLink||curPage===rootPage?"open":"closed"}>
                 <StyledArrow animate={isAnimate?null:"open"} variants={arrowVariants} src={selection_arrow} alt="navigation-arrow" />
                 {header}
             </StyledSelectedItem>

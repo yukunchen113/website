@@ -81,7 +81,7 @@ const MenuBackdropVariants = {
         x:"100vw",
         opacity:0,
         transition:{
-            when:"afterChildren"
+            when:"beforeChildren"
         }
     }
 

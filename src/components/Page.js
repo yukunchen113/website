@@ -1,22 +1,77 @@
 import React from 'react';
 import styled from "styled-components";
 import {motion} from "framer-motion"
-import {sideBarWidth, GetWindowWidth,screenMaxSizes} from "./Constants"
+import {sideBarWidth, GetWindowWidth,screenMaxSizes, rootPage, scrollBarWidth, standardColumnSpace} from "./Constants"
 
-const StyledPage = styled(motion.div)`
-    width: ${props=>props.isFullPageSize?`100vw`:`calc(100vw - calc(${sideBarWidth} + 7.5px))`};
+const StyledPageLayout = styled(motion.div)`
+    position: absolute;
+    width: ${props=>props.isFullPageSize?`100vw`:`calc(100vw - calc(${sideBarWidth} + 7.5px + ${scrollBarWidth}))`};
+    min-height:100vh;
+    background: #121212;
     top: 0;
     right: 0;
-    position:fixed;
-    z-index:0;
+`;
+const StyledPage = styled.div`
+    padding-left: calc(${sideBarWidth} / 3);
+    padding-right: calc(${sideBarWidth} / 3);
+    height: 100%;
+    text-align: left;
+    z-index:1;
 `;
 
-const StyledPageBackground = styled.div`
-    background: #121212;
-    height: 100vh;
-    text-align: center;
-    padding: 2rem;
-    z-index:1;
+const StyledPageContent = styled(motion.div)`
+    word-wrap: break-word;
+    font-size:24px;
+    color: rgba(255, 255, 255, 0.8);
+    a{
+        color: #00F09A;
+    }
+    strong{
+        font-weight:500;
+        color:#b878d6;
+    }
+    b{
+        font-weight:500;
+        color:#b878d6;
+    }
+    h1{
+        color:#FFFFFF;
+        font-size:45px;
+        font-weight: 400;
+        strong{
+            color:#DA8CFF;
+        }
+        :before{
+            content: ": : ";
+            font-weight:500;
+            color:#DA8CFF;
+        }
+    }
+    h2{
+        color:#FFFFFF;
+        // font-size:28px;
+        font-weight: 400;
+        :before{
+            content: ": : ";
+            font-weight:500;
+            color:#00F09A;
+        }
+    }
+    h3{
+        color:#FFFFFF;
+        // font-size:24px;
+        font-weight: 400;
+        :before{
+            content: ": : ";
+            font-weight:500;
+            color:#DA8CFF;
+        }
+    }
+    img{
+        opacity:1;
+        width:600px;
+        height: auto;
+    }
 `;
 
 const pageVariants = {
@@ -36,28 +91,27 @@ const pageVariants = {
             type: "spring",
             stiffness: 400,
             damping: 75,
-            when:"afterChildren",
+            when:"beforeChildren",
             staggerChildren: 0.1
           }
     },
 };
-
 const textVariants = {
-    open:{opacity:1,translation:{duration:0.1}},
-    closed:{opacity:0,translation:{duration:0.1}},
+    open:{opacity:1,translation:{duration:0.2}},
+    closed:{opacity:0,translation:{duration:0}},
 };
-
 export function PageBackground({curPage, children}) {
     const mediaWidth = GetWindowWidth();
     const isFullPageSize = mediaWidth<=screenMaxSizes.tablet;
+
     return (
-        <StyledPage isFullPageSize={isFullPageSize} initial="closed" animate={curPage==="home"?"closed":"open"} variants={pageVariants}>
-            <StyledPageBackground>
-                <motion.div variants={textVariants}>
+        <StyledPageLayout isFullPageSize={isFullPageSize} initial="closed" animate={curPage===rootPage?"closed":"open"} variants={pageVariants}>
+            <StyledPage>
+                <StyledPageContent variants={textVariants}>
                     {children}
-                </motion.div>
-            </StyledPageBackground>
-        </StyledPage>
+                </StyledPageContent>
+            </StyledPage>
+        </StyledPageLayout>
     );
     
-}
+};

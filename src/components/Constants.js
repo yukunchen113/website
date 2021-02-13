@@ -4,12 +4,18 @@ export const Bold = styled.div`
     font-weight: 500;
 `;
 
-export const sideBarWidth = "max(23vw,315px)";
+export const sideBarWidth = "max(26vw,315px)";
 
 export const screenMaxSizes = {
     phone: 740,
-    tablet: 1200,
+    tablet: 1050,
 };
+
+export const standardColumnSpace = `calc((${sideBarWidth} - 13.5rem) / 2)`
+
+export const scrollBarWidth = "0.8vw"
+
+export const rootPage = "/";
 
 export function GetWindowWidth(){
     // window get width is from https://youtu.be/dpw9EHDh2bM?t=2547
@@ -22,4 +28,17 @@ export function GetWindowWidth(){
         };
     },[width, setwidth])
     return width;
+}
+
+export function GetWindowHeight(){
+    // window get height is from https://youtu.be/dpw9EHDh2bM?t=2547
+    const [height, setheight] = useState(window.innerHeight);
+    useEffect(()=>{
+        const handleResize = () => setheight(window.innerHeight);
+        window.addEventListener("resize", handleResize);
+        return () => {
+            window.removeEventListener("resize", handleResize);
+        };
+    },[height, setheight])
+    return height;
 }
