@@ -18,12 +18,12 @@ I previously used Github Pages and Jekyll but wanted to make a better designed w
         - regular text opacity lower (see [Figma design](https://www.figma.com/file/2uTvyLg768yLTsSJLLBuXh/Personal-Website?node-id=0%3A1))
 - add scroll down indicator on mobile/phone
 - add call to actions after description on mobile/phone
-
-
+- in the future, can integrate gatsby SEO, image optimization
+- obsidian integration with gatsby
+    - perhaps this: https://dev.to/bathrobe/creating-a-diy-digital-garden-with-obsidian-and-gatsby-378e
 
 # Bugs:
-- can't click on neural-net hero design after planet hover (seems to be overshadowing)
-    - can also use this to solve (too much whitespace)
+- plant hover overshadows part of neural net
 - RESOLVED: on change of mobile size, parts of hero design will remain hidden
     - used CSS opacity control
 - RESOLVED: if intro animation is disrupted, then some text remains hidden.
@@ -34,7 +34,14 @@ I previously used Github Pages and Jekyll but wanted to make a better designed w
         - putting an invisible css layer that disappears after a certain interval
     - https://overreacted.io/making-setinterval-declarative-with-react-hooks/ looks promising
 
-
+# Structure:
+- main directory is environment config files
+- src has main content
+    - components/ contains react/website components
+        - Layout.js is the entry point
+    - images/ contains images for the overall site (as opposed to post specific)
+    - pages/ contains the web pages, can be .js for react or .mdx/.md for markdown
+        - pages/images/ here contain post specific images
 
 ## Technologies Used:
 - Netlify for deployment
@@ -43,4 +50,10 @@ I previously used Github Pages and Jekyll but wanted to make a better designed w
     - [Create React App](https://github.com/facebook/create-react-app).
 - styled components
 - framer-motion for animations
-- immer
+- gatsby
+    - for page routing and markdown
+    - note: the imported package, gatsby-plugin-layout, (as seen in gatsby-config.js) automatically wraps pages with layout element so elements aren't rerendered 
+    - markdown: create pages for markdown, using template defined in src/templates/
+        - using katex for math plugin
+- I used the mdx katex configuration from here: https://codesandbox.io/s/gatsby-mdx-katex-e1t2q
+    - note, for this to work, you must include require(`katex/dist/katex.min.css`) in your template or layout file

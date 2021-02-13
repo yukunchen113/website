@@ -3,7 +3,7 @@ import {motion} from "framer-motion";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 import {ArrowPushedNavHeader} from "./NavHeader"
-import { GetWindowWidth, screenMaxSizes, sideBarWidth } from "../Constants";
+import { GetWindowWidth, rootPage, screenMaxSizes, sideBarWidth } from "../Constants";
 
 let StyledNav = styled.div`
     ${props => {
@@ -98,7 +98,7 @@ export function NavItem({header, description=[], showDescription=true, isAnimate
                     <ArrowPushedNavHeader header={header} isAnimate={isAnimate&&!isMobile} curPage={curPage} openPage={openPage}/>
                 </motion.div>
                 {/* StyledDescription will format the description at the header-description level of abstraction */}
-                <StyledDescription showDescription={showDescription} showDescriptionUnderneath={isMobile} isHome={curPage==="home"}>
+                <StyledDescription showDescription={showDescription} showDescriptionUnderneath={isMobile} isHome={curPage===rootPage}>
                     {description.map((item,idx)=> 
                         <motion.div variants={navDescriptionVariant} key={idx}>
                             {showDescription?<StyledDescriptionItem showDescription={showDescription} showDescriptionUnderneath={isMobile}>{item}</StyledDescriptionItem>:null}
