@@ -1,5 +1,5 @@
 {
-  "name": "Yukun Chen",
+  "name": "yukun-chen",
   "private": true,
   "description": "Yukun Chen's website",
   "version": "0.1.0",
@@ -47,7 +47,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/gatsbyjs/gatsby-starter-default"
+    "url": "https://github.com/yukunchen113/website"
   },
   "bugs": {
     "url": "https://github.com/gatsbyjs/gatsby/issues"
