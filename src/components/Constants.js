@@ -19,7 +19,7 @@ export const rootPage = "/";
 
 export function GetWindowWidth(){
     // window get width is from https://youtu.be/dpw9EHDh2bM?t=2547
-    const [width, setwidth] = useState(window.innerWidth);
+    const [width, setwidth] = useState(undefined);
     useEffect(()=>{
         const handleResize = () => setwidth(window.innerWidth);
         window.addEventListener("resize", handleResize);
@@ -28,17 +28,4 @@ export function GetWindowWidth(){
         };
     },[width, setwidth])
     return width;
-}
-
-export function GetWindowHeight(){
-    // window get height is from https://youtu.be/dpw9EHDh2bM?t=2547
-    const [height, setheight] = useState(window.innerHeight);
-    useEffect(()=>{
-        const handleResize = () => setheight(window.innerHeight);
-        window.addEventListener("resize", handleResize);
-        return () => {
-            window.removeEventListener("resize", handleResize);
-        };
-    },[height, setheight])
-    return height;
 }
