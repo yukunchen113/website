@@ -2,7 +2,6 @@
 const preferDefault = m => (m && m.default) || m
 
 exports.components = {
-  "component---cache-dev-404-page-js": () => import("./../../dev-404-page.js" /* webpackChunkName: "component---cache-dev-404-page-js" */),
   "component---src-pages-404-js": () => import("./../../../src/pages/404.js" /* webpackChunkName: "component---src-pages-404-js" */),
   "component---src-pages-about-me-mdx": () => import("./../../../src/pages/about-me.mdx" /* webpackChunkName: "component---src-pages-about-me-mdx" */),
   "component---src-pages-experience-mdx": () => import("./../../../src/pages/experience.mdx" /* webpackChunkName: "component---src-pages-experience-mdx" */),
