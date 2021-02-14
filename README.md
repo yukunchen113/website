@@ -23,6 +23,14 @@ I previously used Github Pages and Jekyll but wanted to make a better designed w
     - perhaps this: https://dev.to/bathrobe/creating-a-diy-digital-garden-with-obsidian-and-gatsby-378e
 
 # Bugs:
+- circle cut off on long posts eg. mobile -> about-me -> scroll down
+- mobile refresh has sidebar
+    - this is because window width is initialized as undefined
+        - if we set it initialized to window.innerWidth it works fine
+        - however, we can't do this because of SSR
+- refresh unselects all nav headers
+
+
 - plant hover overshadows part of neural net
 - RESOLVED: on change of mobile size, parts of hero design will remain hidden
     - used CSS opacity control

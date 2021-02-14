@@ -1,25 +1,28 @@
 import React from 'react';
 import styled from "styled-components";
 import {motion} from "framer-motion"
-import {sideBarWidth, GetWindowWidth,screenMaxSizes, rootPage, scrollBarWidth, standardColumnSpace} from "./Constants"
+import {sideBarWidth, GetWindowWidth,screenMaxSizes, rootPage, scrollBarWidth, backgroundColor } from "./Constants"
 
 const StyledPageLayout = styled(motion.div)`
     position: absolute;
     width: ${props=>props.isFullPageSize?`100vw`:`calc(100vw - calc(${sideBarWidth} + 7.5px + ${scrollBarWidth}))`};
-    min-height:100vh;
+    //background: ${backgroundColor}; 
     background: #121212;
     top: 0;
     right: 0;
 `;
 const StyledPage = styled.div`
-    padding-left: calc(${sideBarWidth} / 3);
-    padding-right: calc(${sideBarWidth} / 3);
+    padding-left: ${props=>props.isFullPageSize?`7vh`:`calc(${sideBarWidth} / 3)`};
+    padding-right: ${props=>props.isFullPageSize?`7vh`:`calc(${sideBarWidth} / 3)`};
     height: 100%;
     text-align: left;
     z-index:1;
+    min-height: 90vh;
 `;
 
 const StyledPageContent = styled(motion.div)`
+    padding-top:3vh;
+    padding-bottom:7.5vh;
     word-wrap: break-word;
     font-size:24px;
     color: rgba(255, 255, 255, 0.8);
@@ -37,7 +40,7 @@ const StyledPageContent = styled(motion.div)`
     h1{
         color:#FFFFFF;
         font-size:45px;
-        font-weight: 400;
+        font-weight: 500;
         strong{
             color:#DA8CFF;
         }
@@ -50,7 +53,7 @@ const StyledPageContent = styled(motion.div)`
     h2{
         color:#FFFFFF;
         // font-size:28px;
-        font-weight: 400;
+        font-weight: 500;
         :before{
             content: ": : ";
             font-weight:500;
@@ -60,7 +63,7 @@ const StyledPageContent = styled(motion.div)`
     h3{
         color:#FFFFFF;
         // font-size:24px;
-        font-weight: 400;
+        font-weight: 500;
         :before{
             content: ": : ";
             font-weight:500;
@@ -77,7 +80,7 @@ const StyledPageContent = styled(motion.div)`
 const pageVariants = {
     // code modified from https://codesandbox.io/s/framer-motion-side-menu-mx2rw?fontsize=14&module=/src/Example.tsx&file=/src/Example.tsx:648-789
     open:{
-        clipPath: `circle(150vmax at 94vw 94vh)`,
+        clipPath: `circle(142% at 94vw 94vh)`,
         transition: {
             type: "spring",
             stiffness: 400,
@@ -86,7 +89,7 @@ const pageVariants = {
         }
     },
     closed:{
-        clipPath: "circle(0vmax at 94vw 94vh)",
+        clipPath: "circle(0% at 94vw 94vh)",
         transition: {
             type: "spring",
             stiffness: 400,
@@ -106,7 +109,7 @@ export function PageBackground({curPage, children}) {
 
     return (
         <StyledPageLayout isFullPageSize={isFullPageSize} initial="closed" animate={curPage===rootPage?"closed":"open"} variants={pageVariants}>
-            <StyledPage>
+            <StyledPage isFullPageSize={isFullPageSize}>
                 <StyledPageContent variants={textVariants}>
                     {children}
                 </StyledPageContent>
