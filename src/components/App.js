@@ -5,7 +5,7 @@ import {PageBackground} from "./Page"
 import Navigation from "./Navigation/Navigation";
 import Socials from "./Socials";
 import Logo from "./Logo";
-import {GetWindowWidth, rootPage, screenMaxSizes} from "./Constants";
+import {backgroundColor, GetWindowWidth, rootPage, screenMaxSizes} from "./Constants";
 import {AnimatedNeuralNetButton} from "./HeroDesign/NeuralNet"
 import {AnimatedPlanetButton} from "./HeroDesign/Planet"
 import { useStaticQuery, graphql, navigate } from "gatsby"
@@ -17,7 +17,7 @@ const StyledAppLayout = styled.div`
     justify-content:space-between;
     align-items:${props=>(props.isMobile?"stretch":"flex-start")};
     position:${props=>(props.isTablet?null:`fixed`)};
-    background-color: #09293A;
+    background-color: ${backgroundColor};
 `;
 
 const StyledMainContent = styled.div`
@@ -70,6 +70,9 @@ export default function App({location, children}) {
             }
         }
     `)
+
+    console.log(curPage)
+
     return (
         // Top level animates in the app
         <motion.div style={{overflowX : 'hidden'}} initial="hidden" animate="visible">

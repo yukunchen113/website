@@ -56,9 +56,9 @@ const arrowVariants = {
 export function ArrowPushedNavHeader({header, isAnimate, curPage, openPage}){
     const pageLink = "/"+header.replace(/\s+/g, "-").toLowerCase();
     return(
-        <StyledArrowPushed isAnimate={isAnimate} isCurPage={curPage===pageLink} isHome={curPage===rootPage}>
+        <StyledArrowPushed isAnimate={isAnimate} isCurPage={curPage.startsWith(pageLink)} isHome={curPage===rootPage}>
             {/* we need this StyledSelectedItem below for layout */}
-            <StyledSelectedItem isCurPage={curPage===pageLink} isHome={curPage===rootPage} layout={isAnimate} onClick={()=>openPage(pageLink)} animate={curPage===pageLink||curPage===rootPage?"open":"closed"}>
+            <StyledSelectedItem isCurPage={curPage.startsWith(pageLink)} isHome={curPage===rootPage} layout={isAnimate} onClick={()=>openPage(pageLink)} animate={curPage.startsWith(pageLink)||curPage===rootPage?"open":"closed"}>
                 <StyledArrow animate={isAnimate?null:"open"} variants={arrowVariants} src={selection_arrow} alt="navigation-arrow" />
                 {header}
             </StyledSelectedItem>
