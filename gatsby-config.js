@@ -1,15 +1,46 @@
 module.exports = {
   siteMetadata: {
-    title: `Yukun Chen`,
+    title: "Yukun Chen",
     description: `Yukun Chen's personal website`,
-    author: `@yukunchen`,
   },
   plugins: [
-    `gatsby-plugin-react-helmet`,
+    'gatsby-plugin-react-helmet',
+    `gatsby-transformer-sharp`,
+    "gatsby-plugin-netlify-cms",
+    "gatsby-plugin-styled-components",
+    `gatsby-remark-katex`,
+    `gatsby-plugin-sharp`,
+    `gatsby-remark-images`,
+    {
+      resolve: `gatsby-plugin-mdx`,
+      options: {
+        gatsbyRemarkPlugins:[
+          {
+            resolve: `gatsby-remark-katex`,
+          },
+          {
+            resolve: `gatsby-remark-images`,
+            options: {
+              maxWidth: 1035,
+              quality: 100,
+            },
+          }
+        ],
+        remarkPlugins: [
+          require("remark-math"), 
+          require("remark-html-katex")],
+      },
+    },
     {
       resolve: `gatsby-plugin-layout`,
       options: {
         component: require.resolve(`./src/components/Layout.js`),
+      },
+    },
+    {
+      resolve: "gatsby-source-filesystem",
+      options: {
+        path: "./src/pages/",
       },
     },
     {
@@ -20,35 +51,9 @@ module.exports = {
       },
     },
     {
-      resolve: `gatsby-source-filesystem`,
-      options: {
-        path: `${__dirname}/src/pages`,
-      },
-    },
-    `gatsby-transformer-sharp`,
-    `gatsby-remark-katex`,
-    `gatsby-plugin-sharp`,
-    `gatsby-remark-images`,
-    {
-      resolve: `gatsby-plugin-mdx`,
-      options: {
-        gatsbyRemarkPlugins:[
-          {
-            resolve: `gatsby-remark-images`,
-            options: {
-              maxWidth: 1035,
-            },
-          }
-        ],
-        remarkPlugins: [
-          require("remark-math"), 
-          require("remark-html-katex")],
-      },
-    },
-    {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `gatsby-starter-default`,
+        name: `yukun-chen`,
         short_name: `starter`,
         start_url: `/`,
         background_color: `#663399`,
@@ -58,4 +63,4 @@ module.exports = {
       },
     },
   ],
-}
+};
