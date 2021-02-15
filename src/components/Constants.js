@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import styled from "styled-components";
+import {motion} from "framer-motion";
 export const Bold = styled.div`
     font-weight: 500;
 `;
@@ -44,3 +45,9 @@ export function GetWindowHeight(){
     },[])
     return height;
 }
+
+
+export const NoHighlightMobileButtonTap = styled(motion.div)`
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    -webkit-tap-highlight-color: transparent;
+`;

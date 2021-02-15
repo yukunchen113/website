@@ -1,5 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
+import {NoHighlightMobileButtonTap} from "../Constants"
 const rootVariants = {
     hidden: { 
         opacity: 1,
@@ -93,10 +94,11 @@ export function AnimatedNeuralNet(){
         );
 }
 
+
 export function AnimatedNeuralNetButton(){
     return (
-        <motion.div initial="hidden" animate="visible" whileHover={{scale:1.1}} whileTap={["hidden", "visible"]} style={{cursor:"pointer"}}>
+        <NoHighlightMobileButtonTap initial="hidden" animate="visible" whileHover={{scale:1.1}} whileTap={["hidden", "visible"]} style={{cursor:"pointer"}}>
             <AnimatedNeuralNet/>
-        </motion.div>
+        </NoHighlightMobileButtonTap>
     );
 }

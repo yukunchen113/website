@@ -3,7 +3,7 @@ import {motion} from "framer-motion";
 import styled from "styled-components";
 import github from "../images/github.svg";
 import linkedin from "../images/linkedin.svg";
-import {GetWindowWidth, screenMaxSizes} from "./Constants"
+import {GetWindowWidth, NoHighlightMobileButtonTap, screenMaxSizes} from "./Constants"
 const StyledSocials = styled.div`
     display:flex;
     justify-content: center;
@@ -16,6 +16,7 @@ const StyledSocials = styled.div`
 export default function Socials() {
     const isMobile = GetWindowWidth()<=screenMaxSizes.phone;
     return (
+        <NoHighlightMobileButtonTap>
         <StyledSocials isMobile={isMobile}>
             <motion.a href={"https://github.com/yukunchen113"} whileHover={{scale:1.1}} whileTap={{scale:0.95}}>
                 <img src={github} style={{paddingLeft:"8px"}} alt="github"/>
@@ -24,5 +25,6 @@ export default function Socials() {
                 <img src={linkedin} style={{paddingLeft:"8px"}} alt="github"/>
             </motion.a>
         </StyledSocials>
+        </NoHighlightMobileButtonTap>
     );
 };
