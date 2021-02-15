@@ -12,8 +12,8 @@ const StyledPageLayout = styled(motion.div)`
     right: 0;
 `;
 const StyledPage = styled.div`
-    padding-left: ${props=>props.isFullPageSize?`7vh`:`calc(${sideBarWidth} / 3)`};
-    padding-right: ${props=>props.isFullPageSize?`7vh`:`calc(${sideBarWidth} / 3)`};
+    padding-left: ${props=>props.isFullPageSize?`7vw`:`calc(${sideBarWidth} / 3)`};
+    padding-right: ${props=>props.isFullPageSize?`7vw`:`calc(${sideBarWidth} / 3)`};
     height: 100%;
     text-align: left;
     z-index:1;

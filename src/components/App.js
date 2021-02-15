@@ -71,8 +71,6 @@ export default function App({location, children}) {
         }
     `)
 
-    console.log(curPage)
-
     return (
         // Top level animates in the app
         <motion.div style={{overflowX : 'hidden'}} initial="hidden" animate="visible">
