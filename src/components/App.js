@@ -22,7 +22,7 @@ const StyledAppLayout = styled.div`
 
 const StyledMainContent = styled.div`
     display: grid;
-    padding-top: 75px;
+    padding-top: ${props=>props.isMobile?"0px":"75px"};
     ${props=>!props.isMobile&&`
         grid-template-columns:fit-content auto;
         grid-gap:4vw;
