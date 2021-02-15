@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from "styled-components"
 import {motion} from "framer-motion"
-import { rootPage } from './Constants';
+import { NoHighlightMobileButtonTap, rootPage } from './Constants';
 
 const StyledLogo = styled(motion.div)`
     position:fixed;
@@ -18,10 +18,13 @@ const StyledLogo = styled(motion.div)`
 
 export default function Logo({openPage, children}) {
     return (
-        <StyledLogo id="logo">
-            <div onClick={()=>{openPage(rootPage)}}>
-                {children}
-            </div>
-        </StyledLogo>
+        <NoHighlightMobileButtonTap>
+            <StyledLogo id="logo">
+                <div onClick={()=>{openPage(rootPage)}}>
+                    {children}
+                </div>
+            </StyledLogo>
+        </NoHighlightMobileButtonTap>
+
     );
 }

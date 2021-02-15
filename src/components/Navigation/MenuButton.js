@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from "styled-components";
+import { NoHighlightMobileButtonTap } from '../Constants';
 
 // code modified from https://css-tricks.com/hamburger-menu-with-a-side-of-react-hooks-and-styled-components/
 export const StyledBurger = styled.button`
@@ -41,10 +42,13 @@ export const StyledBurger = styled.button`
 
 export function BurgerMenuButton({isMenuOpen, OpenMenu}){
     return (
-        <StyledBurger open={isMenuOpen} onClick={OpenMenu}>
-            <div/>
-            <div/>
-            <div/>
-        </StyledBurger>
+        <NoHighlightMobileButtonTap>
+            <StyledBurger open={isMenuOpen} onClick={OpenMenu}>
+                <div/>
+                <div/>
+                <div/>
+            </StyledBurger>
+        </NoHighlightMobileButtonTap>
+
     );
 }

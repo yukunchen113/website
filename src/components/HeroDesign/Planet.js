@@ -1,5 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
+import { NoHighlightMobileButtonTap } from "../Constants";
 const rootVariants = {
     hidden: { opacity: 0, scale:0},
     visible: {
@@ -65,8 +66,10 @@ export function AnimatedPlanet(){
 
 export function AnimatedPlanetButton(){
     return (
+        <NoHighlightMobileButtonTap>
         <motion.div initial="hidden" animate="visible" whileHover={{scale:1.1}} whileTap={["hidden", "visible"]} style={{cursor:"pointer"}}>
             <AnimatedPlanet/>
         </motion.div>
+        </NoHighlightMobileButtonTap>
     );
 }

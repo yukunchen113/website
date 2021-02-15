@@ -2,7 +2,7 @@ import React from 'react';
 import {motion} from "framer-motion";
 import styled from "styled-components";
 import selection_arrow from "../../images/selection_arrow.svg";
-import {rootPage, standardColumnSpace} from "../Constants";
+import {NoHighlightMobileButtonTap, rootPage, standardColumnSpace} from "../Constants";
 
 const StyledArrowPushed = styled(motion.a)`
     display: flex;
@@ -56,12 +56,14 @@ const arrowVariants = {
 export function ArrowPushedNavHeader({header, isAnimate, curPage, openPage}){
     const pageLink = "/"+header.replace(/\s+/g, "-").toLowerCase();
     return(
-        <StyledArrowPushed isAnimate={isAnimate} isCurPage={curPage.startsWith(pageLink)} isHome={curPage===rootPage}>
-            {/* we need this StyledSelectedItem below for layout */}
-            <StyledSelectedItem isCurPage={curPage.startsWith(pageLink)} isHome={curPage===rootPage} layout={isAnimate} onClick={()=>openPage(pageLink)} animate={curPage.startsWith(pageLink)||curPage===rootPage?"open":"closed"}>
-                <StyledArrow animate={isAnimate?null:"open"} variants={arrowVariants} src={selection_arrow} alt="navigation-arrow" />
-                {header}
-            </StyledSelectedItem>
-        </StyledArrowPushed>
+        <NoHighlightMobileButtonTap>
+            <StyledArrowPushed isAnimate={isAnimate} isCurPage={curPage.startsWith(pageLink)} isHome={curPage===rootPage}>
+                {/* we need this StyledSelectedItem below for layout */}
+                <StyledSelectedItem isCurPage={curPage.startsWith(pageLink)} isHome={curPage===rootPage} layout={isAnimate} onClick={()=>openPage(pageLink)} animate={curPage.startsWith(pageLink)||curPage===rootPage?"open":"closed"}>
+                    <StyledArrow animate={isAnimate?null:"open"} variants={arrowVariants} src={selection_arrow} alt="navigation-arrow" />
+                    {header}
+                </StyledSelectedItem>
+            </StyledArrowPushed>
+        </NoHighlightMobileButtonTap>
     );
 }

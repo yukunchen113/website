@@ -24,7 +24,7 @@ const StyledPageContent = styled(motion.div)`
     padding-top:3vh;
     padding-bottom:7.5vh;
     word-wrap: break-word;
-    font-size:24px;
+    font-size:max(min(24px,4vw),16px);
     color: rgba(255, 255, 255, 0.8);
     a{
         color: #00F09A;
@@ -39,7 +39,7 @@ const StyledPageContent = styled(motion.div)`
     }
     h1{
         color:#FFFFFF;
-        font-size:45px;
+        font-size:max(min(45px,8vw),30px);
         font-weight: 500;
         strong{
             color:#DA8CFF;
@@ -52,7 +52,7 @@ const StyledPageContent = styled(motion.div)`
     }
     h2{
         color:#FFFFFF;
-        // font-size:28px;
+        font-size:max(min(28px,7vw), 20px);
         font-weight: 500;
         :before{
             content: ": : ";
@@ -62,7 +62,6 @@ const StyledPageContent = styled(motion.div)`
     }
     h3{
         color:#FFFFFF;
-        // font-size:24px;
         font-weight: 500;
         :before{
             content: ": : ";
