@@ -1,2 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[7],{RXBc:function(e,n,t){"use strict";t.r(n);var u=t("q1tI"),r=t.n(u);n.default=function(){return r.a.createElement("div",null,"Super secret text that no one human should ever see. Congrats you're part of a secret club! - Yukun")}}}]);
-//# sourceMappingURL=component---src-pages-index-js-7fb98dfd03ba7f26865c.js.map
