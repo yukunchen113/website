@@ -6,8 +6,8 @@ import {sideBarWidth, GetWindowWidth,screenMaxSizes, rootPage, scrollBarWidth, b
 const StyledPageLayout = styled(motion.div)`
     position: absolute;
     width: ${props=>props.isFullPageSize?`100vw`:`calc(100vw - calc(${sideBarWidth} + 7.5px + ${scrollBarWidth}))`};
-    //background: ${backgroundColor}; 
-    background: #121212;
+    background: ${props=>props.isOpen?backgroundColor:"#091A23"}; 
+    //background: #121212;
     top: 0;
     right: 0;
 `;
@@ -17,7 +17,7 @@ const StyledPage = styled.div`
     height: 100%;
     text-align: left;
     z-index:1;
-    min-height: 90vh;
+    min-height: 100vh;
 `;
 
 const StyledPageContent = styled(motion.div)`
@@ -108,7 +108,7 @@ export function PageBackground({curPage, children}) {
     const isFullPageSize = mediaWidth<=screenMaxSizes.tablet;
 
     return (
-        <StyledPageLayout isFullPageSize={isFullPageSize} initial="closed" animate={curPage===rootPage?"closed":"open"} variants={pageVariants}>
+        <StyledPageLayout isFullPageSize={isFullPageSize} isOpen={curPage!==rootPage} initial="closed" animate={curPage===rootPage?"closed":"open"} variants={pageVariants}>
             <StyledPage isFullPageSize={isFullPageSize}>
                 <StyledPageContent variants={textVariants}>
                     {children}
