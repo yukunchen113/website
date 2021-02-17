@@ -4,18 +4,14 @@ This is the repo for my personal website made with react.
 I previously used Github Pages and Jekyll but wanted to make a better designed website.
 
 # TODO (Next Stage):
+- perhaps add resume
+    - design with figma - done see in src/images
+    - perhaps place next to socials - will be placed on the left of existing socials
+- add title
+- page transition out in mobile should have circle fixed at bottom corner of screen
 - for mobile, animate only when item is in viewport
 - intro animation to show that neural net design represents a brain
     - make brain perform different animations on hover of different topics
-- posts (about me, projects, experience)
-    - animations,
-    - content (see add in markdown capability)
-- add in markdown capability 
-    - [this guy](https://medium.com/@MatDrinksTea/rendering-markdown-and-latex-in-react-dec355e74119) uses:
-        - react-markdown, react-mathjax, remark-math
-    - customize some markdown styling: 
-        - eg. bolding->purple, 
-        - regular text opacity lower (see [Figma design](https://www.figma.com/file/2uTvyLg768yLTsSJLLBuXh/Personal-Website?node-id=0%3A1))
 - add scroll down indicator on mobile/phone
 - add call to actions after description on mobile/phone
 - in the future, can integrate gatsby SEO, image optimization
@@ -23,15 +19,17 @@ I previously used Github Pages and Jekyll but wanted to make a better designed w
     - perhaps this: https://dev.to/bathrobe/creating-a-diy-digital-garden-with-obsidian-and-gatsby-378e
 
 # Bugs:
-- circle cut off on long posts eg. mobile -> about-me -> scroll down
-- mobile refresh has sidebar
+- plant hover overshadows part of neural net
+- RESOLVED: circle cut off on long posts eg. mobile -> about-me -> scroll down
+    - bigger circle
+- RESOLVED: mobile refresh has sidebar
     - this is because window width is initialized as undefined
         - if we set it initialized to window.innerWidth it works fine
         - however, we can't do this because of SSR
-- refresh unselects all nav headers
-
-
-- plant hover overshadows part of neural net
+        - to solve this, force rerender by returning null as the app on SSR
+            - this is a place to be optimized in the future - only force the places that need to be forced
+- RESOLVED: refresh unselects all nav headers
+    - headers didn't detect if pages ended with / as it used === so now, using .startsWith to contain all forms.
 - RESOLVED: on change of mobile size, parts of hero design will remain hidden
     - used CSS opacity control
 - RESOLVED: if intro animation is disrupted, then some text remains hidden.

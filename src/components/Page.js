@@ -52,7 +52,7 @@ const StyledPageContent = styled(motion.div)`
     }
     h2{
         color:#FFFFFF;
-        font-size:max(min(28px,7vw), 20px);
+        font-size:max(min(33px,6vw), 23px);
         font-weight: 500;
         :before{
             content: ": : ";
@@ -62,11 +62,12 @@ const StyledPageContent = styled(motion.div)`
     }
     h3{
         color:#FFFFFF;
+        color: rgba(255, 255, 255, 0.9);
         font-weight: 500;
         :before{
             content: ": : ";
             font-weight:500;
-            color:#DA8CFF;
+            color:#0088D4;
         }
     }
     img{

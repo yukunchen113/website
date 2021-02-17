@@ -15,18 +15,19 @@ const StyledArrowPushed = styled(motion.a)`
     white-space: nowrap;
     font-weight: 500;
     color:#FFFFFF;
-    opacity:${props=>(props.isHome||props.isCurPage)?1:0.5};    
-    &:hover{
-        opacity:1;
-    }
     text-decoration:none;
     user-select: none;
     white-space: nowrap;
 `;
 
 const StyledSelectedItem = styled(motion.div)`
+    display: flex;
+    flex-direction: row;
+    align-items: center;
     cursor:pointer;
+    opacity:${props=>(props.isHome||props.isCurPage)?1:0.5};    
     &:hover{
+        opacity:1;
         color:${props=>props.isHome||!props.isCurPage?`rgb(203, 161, 255)`:null};
     }
 `;
